@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>From Zero to Hero — AWS Partner Program</title>
+<style>
+  :root{
+    --purple:#6a2fc4;
+    --purple-2:#7d3fd6;
+    --purple-deep:#5a27a8;
+    --magenta:#b02fce;
+    --blue:#3f4fd0;
+    --ink:#20242b;
+    --muted:#5b6270;
+    --line:#c22fd0;
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:"Amazon Ember",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;
+       -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  a{text-decoration:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{background:linear-gradient(115deg,#3b46c9 0%,#7a2fce 48%,#b23fce 100%);color:#fff;padding:64px 0 72px;}
+  .hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  .hero .welcome{font-size:16px;color:#e8e0ff;margin-bottom:14px;}
+  .brand-row{display:flex;align-items:center;gap:18px;margin-bottom:30px;}
+  .aws-logo{display:flex;align-items:center;}
+  .aws-logo img{height:52px;width:auto;display:block;}
+  .fzth-badge{display:flex;align-items:center;gap:9px;}
+  .fzth-badge svg{width:46px;height:46px;}
+  .fzth-badge .txt{font-weight:800;font-size:11px;line-height:1.05;letter-spacing:.5px;}
+  .fzth-badge .txt small{display:block;font-size:8px;font-weight:700;letter-spacing:1px;opacity:.9;}
+  .hero h1{font-size:clamp(30px,4.4vw,46px);font-weight:800;margin-bottom:12px;}
+  .hero .tag{font-size:clamp(15px,2vw,19px);color:#eee;max-width:340px;}
+
+  /* form card */
+  .form-card{color:#fff;}
+  .form-card h2{font-size:30px;font-weight:800;margin-bottom:8px;}
+  .form-card .sub{font-size:14px;color:#eee;margin-bottom:20px;max-width:420px;}
+  .form-card input[type=text],
+  .form-card input[type=email],
+  .form-card input[type=password],
+  .form-card select{width:100%;border:none;border-radius:5px;padding:12px 14px;font-size:14px;
+       margin-bottom:12px;background:#fff;color:#333;font-family:var(--sans);}
+  .form-card .row2{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;margin-bottom:12px;}
+  .form-card .row2 label{font-size:14px;color:#fff;}
+  .form-card .row2 select,.form-card .row2 input{margin-bottom:0;}
+  .form-card select{color:#8a8f98;}
+  .form-card .terms{display:flex;align-items:center;gap:9px;font-size:14px;margin:6px 0 18px;}
+  .form-card .terms a{color:#fff;text-decoration:underline;}
+  .btn-submit{background:#5a27a8;color:#fff;border:none;border-radius:22px;padding:11px 30px;font-size:15px;
+       font-weight:700;cursor:pointer;font-family:var(--sans);}
+  .btn-submit:hover{background:#4a1f90;}
+  .form-card .signin{display:block;margin-top:16px;font-size:14px;color:#fff;text-decoration:underline;}
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .section{padding:70px 0;}
+  .section h2.center{text-align:center;font-size:clamp(24px,3.4vw,32px);font-weight:800;color:#1c2129;margin-bottom:14px;}
+  .section p.lead{text-align:center;font-size:17px;color:#3a4049;max-width:760px;margin:0 auto;}
+
+  /* journey columns */
+  .journey{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 48px;margin-top:52px;}
+  .journey .col{text-align:center;}
+  .journey .col h3{font-size:22px;font-weight:800;color:#1c2129;margin-bottom:12px;position:relative;padding-bottom:12px;}
+  .journey .col h3:after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+       width:120px;height:3px;background:#1c2129;}
+  .journey .col p{font-size:15px;color:#4a5059;}
+  .journey.bottom{grid-template-columns:repeat(2,1fr);max-width:760px;margin-left:auto;margin-right:auto;margin-top:44px;}
+
+  /* ---------- PURPLE BANNER ---------- */
+  .banner{background:linear-gradient(120deg,#6a2fc4,#8137d6);color:#fff;border-radius:16px;overflow:hidden;
+       display:grid;grid-template-columns:0.85fr 1.15fr;align-items:center;gap:20px;margin:8px 0;}
+  .banner .art{padding:20px;}
+  .banner .art svg{width:100%;height:auto;display:block;}
+  .banner .txt{padding:44px 48px 44px 8px;}
+  .banner .txt p{font-size:15.5px;margin-bottom:16px;color:#f3eeff;}
+  .btn-light{display:inline-block;background:#fff;color:#5a27a8;font-weight:700;border-radius:24px;
+       padding:11px 30px;font-size:15px;margin-top:8px;}
+  .btn-light:hover{background:#efe8ff;}
+
+  /* divider */
+  .divider{display:flex;align-items:center;justify-content:center;gap:0;margin:20px 0;}
+  .divider .dot{width:12px;height:12px;border-radius:50%;background:var(--line);flex:none;}
+  .divider .bar{height:3px;background:var(--line);width:620px;max-width:70vw;}
+
+  /* why + how */
+  .whyhow{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  .why-card{background:linear-gradient(135deg,#6a2fc4,#7d3fd6);color:#fff;border-radius:14px;padding:38px 34px;}
+  .why-card h3{font-family:var(--serif);font-size:26px;text-align:center;margin-bottom:26px;}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 24px;}
+  .why-grid .num{font-family:var(--serif);font-size:30px;font-weight:700;display:block;
+       border-bottom:2px solid rgba(255,255,255,.6);padding-bottom:4px;margin-bottom:10px;}
+  .why-grid p{font-family:var(--serif);font-size:14.5px;color:#efe8ff;line-height:1.45;}
+  .how h3{font-family:var(--serif);font-size:26px;color:#1c2129;margin-bottom:22px;}
+  .how .step{margin-bottom:20px;}
+  .how .step .head{display:flex;align-items:center;gap:14px;}
+  .how .step .n{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--purple);}
+  .how .step .ln{flex:1;height:2px;background:#1c2129;position:relative;}
+  .how .step .ln:after{content:"";position:absolute;right:-4px;top:-3px;width:9px;height:9px;border-radius:50%;background:var(--line);}
+  .how .step p{font-family:var(--serif);font-size:15px;color:#2a2f38;margin-top:6px;}
+  .btn-purple{display:inline-block;background:var(--purple);color:#fff;font-weight:700;border-radius:24px;
+       padding:11px 28px;font-size:15px;margin-top:10px;}
+  .btn-purple:hover{background:var(--purple-deep);}
+
+  /* checkride */
+  .checkride p.lead b{font-weight:800;}
+
+  /* testimonials */
+  .tst{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px;}
+  .tst .card{background:linear-gradient(160deg,#6f34c9,#5a27a8);color:#fff;border-radius:14px;padding:30px 26px;
+       display:flex;flex-direction:column;}
+  .tst .card .ico{height:52px;margin-bottom:16px;display:flex;justify-content:center;}
+  .tst .card .ico svg{height:52px;width:auto;}
+  .tst .card .quote{font-size:13.5px;color:#efe8ff;flex:1;text-align:center;}
+  .tst .card .who{margin-top:20px;font-weight:800;font-size:14px;text-align:center;}
+
+  /* recognition */
+  .recog{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin:48px 0 40px;text-align:center;}
+  .recog .item svg{height:56px;width:auto;margin-bottom:16px;}
+  .recog .item p{font-size:15px;color:#3a4049;max-width:260px;margin:0 auto;}
+  .center-btn{text-align:center;}
+
+  /* footer CTA */
+  .cta{background:linear-gradient(90deg,#26a7c4 0%,#5a46c9 55%,#8a3fd0 100%);color:#fff;text-align:center;padding:46px 24px;}
+  .cta h2{font-size:clamp(20px,3vw,28px);font-weight:800;margin-bottom:22px;}
+  .cta .btn-light{margin-bottom:26px;}
+  .cta .logos{display:flex;align-items:center;justify-content:center;gap:16px;}
+  .cta .aws-logo img{height:40px;}
+  .cta .fzth-badge svg{width:38px;height:38px;}
+
+  @media(max-width:860px){
+    .hero .wrap,.whyhow,.banner{grid-template-columns:1fr;}
+    .journey{grid-template-columns:1fr;}
+    .journey.bottom{grid-template-columns:1fr;}
+    .tst,.recog{grid-template-columns:1fr;}
+    .banner .txt{padding:28px;}
+  }
+  @media print{
+    *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}
+    .section{padding:34px 0;page-break-inside:avoid;}
+    .banner,.why-card,.tst .card{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="intro">
+        <div class="welcome">Welcome to</div>
+        <div class="brand-row">
+          <div class="aws-logo">
+            <img src="assets/aws-logo-white.svg" alt="AWS" />
+          </div>
+          <div class="fzth-badge">
+            <svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#fff" stroke-width="2"/><path d="M25 9 L14 26 h8 l-3 12 L33 20 h-9 z" fill="#fff"/></svg>
+            <span class="txt">FROM<small>ZERO TO</small>HERO</span>
+          </div>
+        </div>
+        <h1>From Zero to Hero</h1>
+        <p class="tag">Develop the key capabilities to sell AWS in SMB</p>
+      </div>
+
+      <form class="form-card" onsubmit="return false;">
+        <h2>Register now</h2>
+        <p class="sub">Join the community that will help you grow your business. Be the hero of your story.</p>
+        <input type="text" placeholder="First name" />
+        <input type="text" placeholder="Last name" />
+        <input type="email" placeholder="Email" />
+        <input type="text" placeholder="Company" />
+        <div class="row2"><label>Country *</label><select><option>[Not selected]</option></select></div>
+        <div class="row2"><label>Gender *</label><select><option>[Not selected]</option></select></div>
+        <div class="row2"><label>SPMS-ID</label><input type="text" placeholder="SPMS-ID" /></div>
+        <div class="row2"><label>Distributor</label><select><option>[Not selected]</option></select></div>
+        <input type="password" placeholder="Password" />
+        <div class="terms"><input type="checkbox" id="t" /><label for="t"><a href="#">Terms &amp; Conditions</a></label></div>
+        <button class="btn-submit" type="submit">Submit</button>
+        <a class="signin" href="#">Already have an account? Sign in</a>
+      </form>
+    </div>
+  </header>
+
+  <!-- ============ JOURNEY ============ -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="center">A journey designed to grow in SMB</h2>
+      <p class="lead">Each stage of the journey develops a key capability to grow in SMB.</p>
+
+      <div class="journey">
+        <div class="col">
+          <h3>SMB Sales</h3>
+          <p>Structure your sales pitch, better qualify your customers, and position AWS clearly in front of SMB decision-makers.</p>
+        </div>
+        <div class="col">
+          <h3>Marketing Leaders</h3>
+          <p>Build your company's digital presence, generate leads, and convert them into a real pipeline for your business.</p>
+        </div>
+        <div class="col">
+          <h3>Generative AI</h3>
+          <p>Learn to position generative AI solutions in sales conversations with SMB customers.</p>
+        </div>
+      </div>
+
+      <div class="journey bottom">
+        <div class="col">
+          <h3>Starter Kit</h3>
+          <p>Accelerate your first SMB opportunities with ready-to-use messaging, proposals, and assets.</p>
+        </div>
+        <div class="col">
+          <h3>Public Sector</h3>
+          <p>Adapt your sales approach to effectively sell AWS in public sector accounts. You can move at your own pace and go through the complete journey to maximize the value of the program.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PURPLE BANNER ============ -->
+  <div class="wrap">
+    <div class="banner">
+      <div class="art">
+        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="#c9a9f5" stroke-width="1.6" opacity="0.9">
+            <path d="M60 120 L150 70 L240 120 L150 170 Z"/>
+            <path d="M60 120 L60 150 L150 200 L150 170"/>
+            <path d="M240 120 L240 150 L150 200"/>
+            <path d="M100 95 L150 66 L200 95 L150 124 Z" fill="#8f5fe0" stroke="#d9c2ff"/>
+            <rect x="128" y="78" width="8" height="8" fill="#d9c2ff" stroke="none"/>
+            <rect x="142" y="86" width="8" height="8" fill="#d9c2ff" stroke="none"/>
+            <rect x="156" y="78" width="8" height="8" fill="#d9c2ff" stroke="none"/>
+            <path d="M120 150 L120 130 M140 158 L140 138 M160 158 L160 138 M180 150 L180 130"/>
+          </g>
+        </svg>
+      </div>
+      <div class="txt">
+        <p>FZTH is designed as a progressive journey, where each stage adds capabilities that bring you closer to becoming an increasingly solid SMB partner.</p>
+        <p>From Zero to Hero (FZTH) is AWS's commercial enablement program that helps partners strengthen their skills to sell AWS in the SMB segment, with a practical and applied approach.</p>
+        <a class="btn-light" href="#">Start now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WHY / HOW ============ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="divider"><span class="dot"></span><span class="bar"></span><span class="dot"></span></div>
+
+      <div class="whyhow">
+        <div class="why-card">
+          <h3>Why FZTH?</h3>
+          <div class="why-grid">
+            <div><span class="num">01</span><p>Program designed and endorsed by AWS.</p></div>
+            <div><span class="num">02</span><p>Practical approach, focused on real opportunities.</p></div>
+            <div><span class="num">03</span><p>100% digital and flexible format.</p></div>
+            <div><span class="num">04</span><p>Structured feedback on your sales pitch.</p></div>
+          </div>
+        </div>
+
+        <div class="how">
+          <h3>How does it work?</h3>
+          <div class="step"><div class="head"><span class="n">01</span><span class="ln"></span></div><p>Register on the platform</p></div>
+          <div class="step"><div class="head"><span class="n">02</span><span class="ln"></span></div><p>Progress through the journey according to your priorities</p></div>
+          <div class="step"><div class="head"><span class="n">03</span><span class="ln"></span></div><p>Validate your pitch and improve with feedback</p></div>
+          <a class="btn-purple" href="#">Start the journey</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHECKRIDE ============ -->
+  <section class="section checkride" style="padding-top:0;">
+    <div class="wrap">
+      <h2 class="center">Validation that drives better conversations</h2>
+      <p class="lead">The <b>Automated Checkride</b> helps you evaluate and improve your sales pitch consistently. You receive clear, actionable feedback to strengthen how you position AWS in front of SMB customers.</p>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <h2 class="center">Partners who have already completed FZTH</h2>
+      <div class="tst">
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 40 40" fill="none" stroke="#fff" stroke-width="2"><circle cx="20" cy="13" r="7"/><path d="M7 35 c0-8 26-8 26 0"/></svg></div>
+          <p class="quote">"Taking part in the FZTH program was a real accelerator for our team. The most valuable part was the practical structure for organizing the commercial discourse and, at the same time, grounding the technical approach with design criteria, best practices, and value-oriented conversation. On the commercial side, it helped us clarify our proposal and better approach discovery with customers through the suggested prospecting tools, connecting use cases with impact and ROI. On the technical side, we strengthened our architecture approach and how we justify decisions (security, scalability, and cost), achieving more aligned teams and stronger conversations with prospects."</p>
+          <div class="who">BE Management Services – Argentina</div>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 40 40" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="12" r="4"/><circle cx="31" cy="10" r="4"/><circle cx="20" cy="30" r="4"/><path d="M12 14 L18 27 M28 13 L23 27"/></svg></div>
+          <p class="quote">"Participating in the FZTH program was a highly valuable experience. Through a combination of practical and conceptual content, we managed to strengthen our understanding of using cloud services in real projects and their impact on the digital transformation of organizations. Without a doubt, an initiative that delivers applicable knowledge and strengthens technical capabilities within the company."</p>
+          <div class="who">Eikon - Ecuador</div>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 40 40" fill="none" stroke="#fff" stroke-width="2"><circle cx="20" cy="20" r="15"/><path d="M13 20 l5 5 l9 -10"/></svg></div>
+          <p class="quote">"Every track adds up. In the end, the team ends up much better prepared to talk with SMB customers."</p>
+          <div class="who">Lorem ipsum</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECOGNITION ============ -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <h2 class="center">Recognition within the AWS ecosystem</h2>
+      <div class="recog">
+        <div class="item">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#6a2fc4" stroke-width="2"><circle cx="24" cy="18" r="11"/><path d="M17 27 l-3 16 l10 -6 l10 6 l-3 -16"/></svg>
+          <p>Badges visible to AWS sales teams.</p>
+        </div>
+        <div class="item">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#6a2fc4" stroke-width="2"><path d="M6 22 l8 -6 l10 6 l6 -4 l12 8 l-8 8 l-6 -4 l-8 6 l-14 -8 Z"/></svg>
+          <p>Progressive differentiation from other partners.</p>
+        </div>
+        <div class="item">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#6a2fc4" stroke-width="2"><circle cx="17" cy="16" r="7"/><path d="M5 40 c0-9 24-9 24 0"/><path d="M33 20 l5 5 l8 -9"/></svg>
+          <p>A natural incentive to keep advancing through the journey.</p>
+        </div>
+      </div>
+      <div class="center-btn"><a class="btn-purple" href="#">Start the journey</a></div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER CTA ============ -->
+  <section class="cta">
+    <h2>Keep building your capabilities as an SMB partner.</h2>
+    <a class="btn-light" href="#">Register for From Zero to Hero</a>
+    <div class="logos">
+      <div class="aws-logo">
+        <img src="assets/aws-logo-white.svg" alt="AWS" />
+      </div>
+      <div class="fzth-badge">
+        <svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#fff" stroke-width="2"/><path d="M25 9 L14 26 h8 l-3 12 L33 20 h-9 z" fill="#fff"/></svg>
+        <span class="txt">FROM<small>ZERO TO</small>HERO</span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
